@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Маркетплейс — v4 Современный</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
+      background: #f7f8fc;
+      color: #1a1d2e;
+      font-size: 14px;
+    }
+
+    /* HEADER */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e8eaf0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .logo {
+      font-size: 21px;
+      font-weight: 900;
+      text-decoration: none;
+      color: #1a1d2e;
+      white-space: nowrap;
+      letter-spacing: -0.5px;
+    }
+    .logo span {
+      background: linear-gradient(135deg, #6c47ff, #e040fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .search-bar {
+      flex: 1;
+      display: flex;
+      background: #f0f2f8;
+      border: 1.5px solid #e0e4f0;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-bar:focus-within {
+      border-color: #6c47ff;
+      box-shadow: 0 0 0 3px rgba(108,71,255,0.1);
+      background: #fff;
+    }
+    .search-bar input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 10px 14px;
+      font-size: 14px;
+      color: #1a1d2e;
+      outline: none;
+    }
+    .search-bar input::placeholder { color: #a0a8c0; }
+    .search-bar button {
+      background: linear-gradient(135deg, #6c47ff, #5235d4);
+      border: none;
+      padding: 0 20px;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 13px;
+      transition: opacity 0.2s;
+    }
+    .search-bar button:hover { opacity: 0.9; }
+
+    .header-nav { display: flex; align-items: center; gap: 6px; }
+    .header-nav a {
+      color: #5a6080;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 7px 12px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .header-nav a:hover { background: #f0f2f8; color: #1a1d2e; }
+    .btn-post {
+      background: linear-gradient(135deg, #6c47ff, #e040fb) !important;
+      color: #fff !important;
+      font-weight: 600 !important;
+      border-radius: 8px !important;
+    }
+    .btn-post:hover { opacity: 0.9; background: linear-gradient(135deg, #5a35e8, #c030d8) !important; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #6c47ff 0%, #a855f7 50%, #e040fb 100%);
+      padding: 60px 20px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -10%;
+      width: 300px;
+      height: 300px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      right: 5%;
+      width: 400px;
+      height: 400px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+    .hero h1 {
+      font-size: 38px;
+      font-weight: 900;
+      margin-bottom: 12px;
+      letter-spacing: -1px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero p {
+      font-size: 16px;
+      opacity: 0.85;
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HERO SEARCH */
+    .hero-search {
+      max-width: 580px;
+      margin: 0 auto 24px;
+      display: flex;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 1;
+    }
+    .hero-search input {
+      flex: 1;
+      border: none;
+      padding: 14px 18px;
+      font-size: 15px;
+      color: #1a1d2e;
+      outline: none;
+    }
+    .hero-search input::placeholder { color: #a0a8c0; }
+    .hero-search button {
+      background: linear-gradient(135deg, #6c47ff, #e040fb);
+      border: none;
+      color: #fff;
+      padding: 0 24px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .hero-search button:hover { opacity: 0.9; }
+
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-btns a {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.5);
+      padding: 10px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      backdrop-filter: blur(4px);
+      transition: all 0.2s;
+    }
+    .hero-btns a:hover { background: rgba(255,255,255,0.3); }
+    .hero-btns a.filled {
+      background: #fff;
+      color: #6c47ff;
+      border-color: transparent;
+    }
+    .hero-btns a.filled:hover { background: rgba(255,255,255,0.9); }
+
+    /* CATS */
+    .cats-section {
+      max-width: 1180px;
+      margin: 32px auto;
+      padding: 0 20px;
+    }
+    .cats-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+    .cats-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 10px;
+    }
+    .cat-item {
+      background: #fff;
+      border: 1.5px solid #e8eaf0;
+      border-radius: 12px;
+      padding: 14px 8px;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      color: #1a1d2e;
+      transition: all 0.2s;
+    }
+    .cat-item:hover {
+      border-color: #6c47ff;
+      box-shadow: 0 4px 16px rgba(108,71,255,0.12);
+      transform: translateY(-2px);
+    }
+    .cat-item .icon { font-size: 26px; margin-bottom: 6px; display: block; }
+    .cat-item .label { font-size: 11px; font-weight: 600; color: #5a6080; }
+    .cat-item .count { font-size: 10px; color: #a0a8c0; margin-top: 2px; }
+
+    /* STATS */
+    .stats-section {
+      background: linear-gradient(135deg, #1a1d2e, #2a2d4e);
+      padding: 24px 20px;
+      margin-bottom: 0;
+    }
+    .stats-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+    }
+    .stat { text-align: center; }
+    .stat-num { font-size: 28px; font-weight: 900; color: #fff; letter-spacing: -1px; }
+    .stat-num span { color: #a78bfa; }
+    .stat-label { font-size: 12px; color: #7080a0; margin-top: 3px; }
+
+    /* LISTINGS */
+    .listings-section {
+      max-width: 1180px;
+      margin: 32px auto;
+      padding: 0 20px;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .section-header h2 { font-size: 18px; font-weight: 700; }
+    .section-header a {
+      color: #6c47ff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .section-header a:hover { text-decoration: underline; }
+
+    .ads-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .ad-card {
+      background: #fff;
+      border: 1.5px solid #e8eaf0;
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ad-card:hover {
+      border-color: #c4b5fd;
+      box-shadow: 0 6px 24px rgba(108,71,255,0.12);
+      transform: translateY(-3px);
+    }
+    .ad-img {
+      background: linear-gradient(135deg, #f0f2f8, #e8eaf8);
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      position: relative;
+    }
+    .ad-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: linear-gradient(135deg, #6c47ff, #e040fb);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+    .ad-fav {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .ad-body { padding: 12px 14px; }
+    .ad-price { font-size: 17px; font-weight: 800; color: #1a1d2e; margin-bottom: 4px; }
+    .ad-title { font-size: 12px; color: #5a6080; margin-bottom: 8px; line-height: 1.4; }
+    .ad-footer { display: flex; justify-content: space-between; align-items: center; }
+    .ad-city { font-size: 11px; color: #a0a8c0; }
+    .ad-time { font-size: 11px; color: #a0a8c0; }
+
+    /* REGISTER CTA */
+    .cta-section {
+      background: linear-gradient(135deg, #1a1d2e 0%, #2d1f5e 100%);
+      padding: 50px 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .cta-section h2 { font-size: 26px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .cta-section p { color: #7080a0; font-size: 14px; margin-bottom: 24px; }
+    .cta-btns { display: flex; gap: 12px; justify-content: center; }
+    .cta-btns a {
+      padding: 13px 28px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .cta-btns .btn-a {
+      background: linear-gradient(135deg, #6c47ff, #e040fb);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(108,71,255,0.4);
+    }
+    .cta-btns .btn-a:hover { opacity: 0.9; }
+    .cta-btns .btn-b {
+      background: rgba(255,255,255,0.08);
+      color: #a78bfa;
+      border: 1.5px solid rgba(167,139,250,0.3);
+    }
+    .cta-btns .btn-b:hover { background: rgba(255,255,255,0.12); }
+
+    /* FOOTER */
+    footer {
+      background: #12141f;
+      padding: 32px 20px 16px;
+    }
+    .footer-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #1e2035;
+    }
+    .footer-brand .logo { font-size: 20px; margin-bottom: 10px; display: block; text-decoration: none; color: #fff; }
+    .footer-brand p { color: #4a5070; font-size: 12px; line-height: 1.7; }
+    .footer-col h4 { color: #5a6080; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+    .footer-col a { display: block; color: #4a5070; text-decoration: none; font-size: 13px; margin-bottom: 8px; }
+    .footer-col a:hover { color: #a78bfa; }
+    .footer-bottom {
+      max-width: 1180px;
+      margin: 16px auto 0;
+      color: #2a3050;
+      font-size: 11px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">Deal<span>Space</span></a>
+    <div class="search-bar">
+      <input type="text" placeholder="Что ищете?">
+      <button>Найти</button>
+    </div>
+    <nav class="header-nav">
+      <a href="#">Войти</a>
+      <a href="#">Регистрация</a>
+      <a href="#" class="btn-post">+ Объявление</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <h1>Покупай. Продавай. Просто.</h1>
+  <p>60 000+ объявлений · Бесплатная публикация · Вся страна</p>
+  <div class="hero-search">
+    <input type="text" placeholder="Поиск: iPhone, Toyota, квартира Киев...">
+    <button>Найти</button>
+  </div>
+  <div class="hero-btns">
+    <a href="#" class="filled">Все объявления</a>
+    <a href="#">Подать бесплатно</a>
+    <a href="#">Зарегистрироваться</a>
+  </div>
+</div>
+
+<div class="stats-section">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-num">60<span>K+</span></div>
+      <div class="stat-label">Объявлений</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">14<span>K</span></div>
+      <div class="stat-label">Пользователей</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3<span>K</span></div>
+      <div class="stat-label">Сделок сегодня</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">12</div>
+      <div class="stat-label">Городов</div>
+    </div>
+  </div>
+</div>
+
+<div class="cats-section">
+  <h2>Категории</h2>
+  <div class="cats-grid">
+    <a href="#" class="cat-item"><span class="icon">📱</span><span class="label">Электроника</span><span class="count">12 841</span></a>
+    <a href="#" class="cat-item"><span class="icon">🚗</span><span class="label">Авто</span><span class="count">8 320</span></a>
+    <a href="#" class="cat-item"><span class="icon">🏠</span><span class="label">Недвижимость</span><span class="count">5 102</span></a>
+    <a href="#" class="cat-item"><span class="icon">👗</span><span class="label">Одежда</span><span class="count">22 450</span></a>
+    <a href="#" class="cat-item"><span class="icon">🛋️</span><span class="label">Мебель</span><span class="count">3 670</span></a>
+    <a href="#" class="cat-item"><span class="icon">💼</span><span class="label">Работа</span><span class="count">9 100</span></a>
+    <a href="#" class="cat-item"><span class="icon">🐾</span><span class="label">Животные</span><span class="count">1 890</span></a>
+    <a href="#" class="cat-item"><span class="icon">⚽</span><span class="label">Спорт</span><span class="count">4 210</span></a>
+  </div>
+</div>
+
+<div class="listings-section">
+  <div class="section-header">
+    <h2>Свежие объявления</h2>
+    <a href="#">Смотреть все →</a>
+  </div>
+  <div class="ads-grid">
+    <div class="ad-card">
+      <div class="ad-img">
+        <span class="ad-badge">Новое</span>
+        <span class="ad-fav">🤍</span>
+        📱
+      </div>
+      <div class="ad-body">
+        <div class="ad-price">7 500 грн</div>
+        <div class="ad-title">iPhone 13 128GB, отличное состояние</div>
+        <div class="ad-footer">
+          <span class="ad-city">📍 Киев</span>
+          <span class="ad-time">2ч назад</span>
+        </div>
+      </div>
+    </div>
+    <div class="ad-card">
+      <div class="ad-img">
+        <span class="ad-fav">🤍</span>
+        💻
+      </div>
+      <div class="ad-body">
+        <div class="ad-price">18 000 грн</div>
+        <div class="ad-title">Lenovo ThinkPad i5/16GB/SSD 512</div>
+        <div class="ad-footer">
+          <span class="ad-city">📍 Харьков</span>
+          <span class="ad-time">4ч назад</span>
+        </div>
+      </div>
+    </div>
+    <div class="ad-card">
+      <div class="ad-img">
+        <span class="ad-badge">ТОП</span>
+        <span class="ad-fav">🤍</span>
+        🚗
+      </div>
+      <div class="ad-body">
+        <div class="ad-price">210 000 грн</div>
+        <div class="ad-title">Toyota Camry 2019, 45 000 км пробег</div>
+        <div class="ad-footer">
+          <span class="ad-city">📍 Одесса</span>
+          <span class="ad-time">5ч назад</span>
+        </div>
+      </div>
+    </div>
+    <div class="ad-card">
+      <div class="ad-img">
+        <span class="ad-fav">🤍</span>
+        🏠
+      </div>
+      <div class="ad-body">
+        <div class="ad-price">35 000 $</div>
+        <div class="ad-title">Квартира 2к, 52м², ул. Центральная</div>
+        <div class="ad-footer">
+          <span class="ad-city">📍 Харьков</span>
+          <span class="ad-time">6ч назад</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <h2>Готовы начать продавать?</h2>
+  <p>Зарегистрируйтесь бесплатно и разместите первое объявление за 2 минуты</p>
+  <div class="cta-btns">
+    <a href="#" class="btn-a">Зарегистрироваться бесплатно</a>
+    <a href="#" class="btn-b">Войти в аккаунт</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo">Deal<span style="background:linear-gradient(135deg,#6c47ff,#e040fb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Space</span></a>
+      <p>Маркетплейс для честных сделок. Без посредников, без скрытых комиссий.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Компания</h4>
+      <a href="#">О нас</a>
+      <a href="#">Контакты</a>
+      <a href="#">Вакансии</a>
+    </div>
+    <div class="footer-col">
+      <h4>Помощь</h4>
+      <a href="#">Правила</a>
+      <a href="#">Безопасность</a>
+      <a href="#">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h4>Продавцам</h4>
+      <a href="#">Разместить</a>
+      <a href="#">Тарифы</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 DealSpace. Все права защищены.</div>
+</footer>
+
+</body>
+</html>

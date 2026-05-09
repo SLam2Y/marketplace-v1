@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Маркетплейс — v2 Тёмная тема</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #0f1117;
+      color: #e0e4f0;
+      font-size: 14px;
+    }
+
+    /* HEADER */
+    header {
+      background: #161b27;
+      border-bottom: 1px solid #252d42;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: 900;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .logo span {
+      color: #00d4ff;
+      text-shadow: 0 0 12px rgba(0,212,255,0.6);
+    }
+
+    .search-bar {
+      flex: 1;
+      display: flex;
+      background: #1e2535;
+      border: 1px solid #2d3a55;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .search-bar:focus-within { border-color: #00d4ff; box-shadow: 0 0 0 2px rgba(0,212,255,0.1); }
+    .search-bar input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 10px 16px;
+      color: #e0e4f0;
+      font-size: 14px;
+      outline: none;
+    }
+    .search-bar input::placeholder { color: #5a6480; }
+    .search-bar button {
+      background: #00d4ff;
+      border: none;
+      padding: 0 20px;
+      color: #0f1117;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 13px;
+      transition: background 0.2s;
+    }
+    .search-bar button:hover { background: #00b8db; }
+
+    .header-actions { display: flex; gap: 10px; align-items: center; }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid #2d3a55;
+      color: #a0adc0;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover { border-color: #00d4ff; color: #00d4ff; }
+    .btn-primary {
+      background: linear-gradient(135deg, #00d4ff, #0095b3);
+      border: none;
+      color: #0f1117;
+      padding: 8px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+
+    /* NAV CATS */
+    .cat-nav {
+      background: #161b27;
+      border-bottom: 1px solid #1e2535;
+    }
+    .cat-nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 2px;
+      overflow-x: auto;
+    }
+    .cat-nav a {
+      color: #8090b0;
+      text-decoration: none;
+      font-size: 12px;
+      padding: 10px 14px;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .cat-nav a:hover { color: #e0e4f0; border-bottom-color: #00d4ff; }
+    .cat-nav a.active { color: #00d4ff; border-bottom-color: #00d4ff; }
+    .cat-nav .post-btn {
+      margin-left: auto;
+      background: linear-gradient(135deg, #ff6b35, #e0450a);
+      color: #fff;
+      border-radius: 5px;
+      margin-top: 6px;
+      margin-bottom: 6px;
+      font-weight: 700;
+      border-bottom: none;
+    }
+    .cat-nav .post-btn:hover { opacity: 0.85; border-bottom: none; }
+
+    /* HERO */
+    .hero {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 16px;
+    }
+    .hero-main {
+      background: linear-gradient(135deg, #161f35 0%, #0d1628 100%);
+      border: 1px solid #1e2d4a;
+      border-radius: 12px;
+      padding: 40px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-main::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(0,212,255,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-main::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: -40px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(255,107,53,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(0,212,255,0.1);
+      color: #00d4ff;
+      border: 1px solid rgba(0,212,255,0.3);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      letter-spacing: 0.5px;
+    }
+    .hero-main h1 {
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    .hero-main h1 em {
+      font-style: normal;
+      color: #00d4ff;
+      text-shadow: 0 0 20px rgba(0,212,255,0.4);
+    }
+    .hero-main p { color: #7a8aaa; font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
+    .hero-btns { display: flex; gap: 12px; position: relative; z-index: 1; }
+    .btn-neon {
+      background: linear-gradient(135deg, #00d4ff, #0095b3);
+      color: #0f1117;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(0,212,255,0.3);
+    }
+    .btn-neon:hover { box-shadow: 0 4px 30px rgba(0,212,255,0.5); }
+    .btn-outline-neon {
+      background: transparent;
+      color: #00d4ff;
+      border: 1px solid rgba(0,212,255,0.4);
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-outline-neon:hover { background: rgba(0,212,255,0.05); }
+
+    /* AUTH CARD */
+    .auth-card {
+      background: #161b27;
+      border: 1px solid #252d42;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .auth-card h3 { font-size: 15px; color: #fff; margin-bottom: 18px; }
+    .auth-card .tabs {
+      display: flex;
+      background: #0f1117;
+      border-radius: 6px;
+      padding: 3px;
+      margin-bottom: 18px;
+    }
+    .auth-card .tabs button {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #6070a0;
+      padding: 7px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+    .auth-card .tabs button.active {
+      background: #1e2535;
+      color: #00d4ff;
+    }
+    .field {
+      margin-bottom: 12px;
+    }
+    .field label { display: block; font-size: 11px; color: #6070a0; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .field input {
+      width: 100%;
+      background: #1e2535;
+      border: 1px solid #2d3a55;
+      color: #e0e4f0;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .field input:focus { border-color: #00d4ff; }
+    .field input::placeholder { color: #4a5570; }
+    .auth-submit {
+      width: 100%;
+      background: linear-gradient(135deg, #00d4ff, #0095b3);
+      border: none;
+      color: #0f1117;
+      padding: 11px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    .auth-submit:hover { opacity: 0.85; }
+
+    /* STATS */
+    .stats {
+      max-width: 1200px;
+      margin: 0 auto 24px;
+      padding: 0 20px;
+      display: flex;
+      gap: 12px;
+    }
+    .stat-card {
+      flex: 1;
+      background: #161b27;
+      border: 1px solid #252d42;
+      border-radius: 10px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .stat-icon { font-size: 28px; }
+    .stat-num { font-size: 22px; font-weight: 800; color: #00d4ff; }
+    .stat-label { font-size: 11px; color: #6070a0; margin-top: 2px; }
+
+    /* GRID */
+    .section {
+      max-width: 1200px;
+      margin: 0 auto 24px;
+      padding: 0 20px;
+    }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .section-head h2 { font-size: 16px; font-weight: 700; color: #fff; }
+    .section-head a { font-size: 12px; color: #00d4ff; text-decoration: none; }
+
+    .ads-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .ad-card {
+      background: #161b27;
+      border: 1px solid #1e2535;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .ad-card:hover { border-color: #00d4ff; transform: translateY(-2px); }
+    .ad-img {
+      background: #1e2535;
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+    }
+    .ad-body { padding: 12px; }
+    .ad-price { color: #00d4ff; font-weight: 700; font-size: 15px; margin-bottom: 5px; }
+    .ad-title { color: #c0ccdf; font-size: 12px; line-height: 1.4; margin-bottom: 6px; }
+    .ad-meta { color: #4a5570; font-size: 11px; }
+    .ad-badge {
+      display: inline-block;
+      background: rgba(255,107,53,0.15);
+      color: #ff6b35;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-bottom: 6px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #161b27;
+      border-top: 1px solid #1e2535;
+      padding: 30px 0 16px;
+      margin-top: 20px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .footer-brand .logo { display: block; margin-bottom: 10px; font-size: 20px; }
+    .footer-brand p { color: #4a5570; font-size: 12px; line-height: 1.6; }
+    .footer-col h4 { color: #6070a0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+    .footer-col a { display: block; color: #5a6a90; text-decoration: none; font-size: 13px; margin-bottom: 8px; }
+    .footer-col a:hover { color: #00d4ff; }
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 20px 0;
+      border-top: 1px solid #1e2535;
+      color: #3a4560;
+      font-size: 11px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">Торг<span>NET</span></a>
+    <div class="search-bar">
+      <input type="text" placeholder="Поиск по всем объявлениям...">
+      <button>Найти</button>
+    </div>
+    <div class="header-actions">
+      <a href="#" class="btn-ghost">Войти</a>
+      <a href="#" class="btn-primary">Регистрация</a>
+    </div>
+  </div>
+</header>
+
+<div class="cat-nav">
+  <div class="cat-nav-inner">
+    <a href="#" class="active">Все</a>
+    <a href="#">Электроника</a>
+    <a href="#">Авто</a>
+    <a href="#">Недвижимость</a>
+    <a href="#">Одежда</a>
+    <a href="#">Мебель</a>
+    <a href="#">Работа</a>
+    <a href="#">Спорт</a>
+    <a href="#">Животные</a>
+    <a href="#" class="post-btn">+ Подать объявление</a>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-main">
+    <div class="hero-tag">🔥 Маркетплейс #1</div>
+    <h1>Покупай и продавай<br><em>без лишних затрат</em></h1>
+    <p>Тысячи объявлений от реальных людей. Никаких скрытых комиссий — только прямые сделки.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-neon">Смотреть объявления</a>
+      <a href="#" class="btn-outline-neon">Разместить бесплатно</a>
+    </div>
+  </div>
+
+  <div class="auth-card">
+    <h3>Вход в аккаунт</h3>
+    <div class="tabs">
+      <button class="active">Войти</button>
+      <button>Регистрация</button>
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" placeholder="you@example.com">
+    </div>
+    <div class="field">
+      <label>Пароль</label>
+      <input type="password" placeholder="••••••••">
+    </div>
+    <button class="auth-submit">Войти</button>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat-card">
+    <div class="stat-icon">📋</div>
+    <div>
+      <div class="stat-num">60 214</div>
+      <div class="stat-label">Активных объявлений</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">👥</div>
+    <div>
+      <div class="stat-num">14 880</div>
+      <div class="stat-label">Зарегистрировано</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">🤝</div>
+    <div>
+      <div class="stat-num">3 402</div>
+      <div class="stat-label">Сделок сегодня</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">⭐</div>
+    <div>
+      <div class="stat-num">4.9</div>
+      <div class="stat-label">Средний рейтинг</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-head">
+    <h2>Свежие объявления</h2>
+    <a href="#">Смотреть все →</a>
+  </div>
+  <div class="ads-grid">
+    <div class="ad-card">
+      <div class="ad-img">📱</div>
+      <div class="ad-body">
+        <div class="ad-badge">Новое</div>
+        <div class="ad-price">7 500 грн</div>
+        <div class="ad-title">iPhone 13 128GB, отличное состояние</div>
+        <div class="ad-meta">📍 Киев · 2 часа назад</div>
+      </div>
+    </div>
+    <div class="ad-card">
+      <div class="ad-img">💻</div>
+      <div class="ad-body">
+        <div class="ad-price">18 000 грн</div>
+        <div class="ad-title">Lenovo ThinkPad i5/16GB/SSD</div>
+        <div class="ad-meta">📍 Харьков · 4 часа назад</div>
+      </div>
+    </div>
+    <div class="ad-card">
+      <div class="ad-img">🚗</div>
+      <div class="ad-body">
+        <div class="ad-badge">ТОП</div>
+        <div class="ad-price">210 000 грн</div>
+        <div class="ad-title">Toyota Camry 2019, 45 000 км</div>
+        <div class="ad-meta">📍 Одесса · 5 часов назад</div>
+      </div>
+    </div>
+    <div class="ad-card">
+      <div class="ad-img">🛋️</div>
+      <div class="ad-body">
+        <div class="ad-price">4 200 грн</div>
+        <div class="ad-title">Диван угловой, б/у хорошее сост.</div>
+        <div class="ad-meta">📍 Днепр · 6 часов назад</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo">Торг<span style="color:#00d4ff">NET</span></a>
+      <p>Маркетплейс для честных сделок между людьми. Без посредников и комиссий.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Помощь</h4>
+      <a href="#">Правила</a>
+      <a href="#">Безопасность</a>
+      <a href="#">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h4>Продавцам</h4>
+      <a href="#">Разместить</a>
+      <a href="#">Тарифы</a>
+    </div>
+    <div class="footer-col">
+      <h4>Контакты</h4>
+      <a href="#">Telegram</a>
+      <a href="#">Viber</a>
+      <a href="#">Email</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 ТоргNET. Все права защищены.</div>
+</footer>
+
+</body>
+</html>

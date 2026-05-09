@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Маркетплейс — v1 Классика</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      background: #e8eef5;
+      color: #1a1a1a;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      background: #1a3a6e;
+      color: #c8d8f0;
+      font-size: 11px;
+      padding: 4px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .topbar a { color: #a0c0e8; text-decoration: none; margin-left: 12px; }
+    .topbar a:hover { text-decoration: underline; color: #fff; }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(180deg, #2255a4 0%, #1a4090 100%);
+      padding: 0 16px;
+      border-bottom: 3px solid #f0a500;
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 10px 0;
+    }
+    .logo {
+      font-size: 26px;
+      font-weight: 900;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -1px;
+      text-shadow: 1px 2px 4px rgba(0,0,0,0.4);
+      white-space: nowrap;
+    }
+    .logo span { color: #f0a500; }
+
+    /* SEARCH */
+    .search-bar {
+      flex: 1;
+      display: flex;
+      gap: 0;
+    }
+    .search-bar select {
+      border: 2px solid #f0a500;
+      border-right: none;
+      background: #fff;
+      padding: 0 8px;
+      font-size: 12px;
+      color: #333;
+      border-radius: 3px 0 0 3px;
+      cursor: pointer;
+    }
+    .search-bar input {
+      flex: 1;
+      border: 2px solid #f0a500;
+      border-right: none;
+      padding: 8px 10px;
+      font-size: 13px;
+      outline: none;
+    }
+    .search-bar button {
+      background: #f0a500;
+      border: 2px solid #f0a500;
+      color: #fff;
+      font-weight: bold;
+      padding: 0 20px;
+      cursor: pointer;
+      font-size: 13px;
+      border-radius: 0 3px 3px 0;
+    }
+    .search-bar button:hover { background: #d49200; }
+
+    .header-auth {
+      display: flex;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .btn-login {
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.5);
+      color: #fff;
+      padding: 6px 14px;
+      cursor: pointer;
+      font-size: 12px;
+      border-radius: 3px;
+      text-decoration: none;
+    }
+    .btn-login:hover { background: rgba(255,255,255,0.1); }
+    .btn-reg {
+      background: #f0a500;
+      border: 2px solid #f0a500;
+      color: #fff;
+      padding: 6px 14px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 3px;
+      text-decoration: none;
+    }
+    .btn-reg:hover { background: #d49200; }
+
+    /* NAV */
+    nav {
+      background: #1e4da0;
+      border-bottom: 1px solid #1a3a7a;
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+    }
+    nav a {
+      display: inline-block;
+      color: #d0e4ff;
+      text-decoration: none;
+      padding: 9px 14px;
+      font-size: 12px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      transition: background 0.15s;
+    }
+    nav a:hover, nav a.active {
+      background: #f0a500;
+      color: #fff;
+    }
+    nav a.post-ad {
+      margin-left: auto;
+      background: #28a745;
+      color: #fff;
+      font-weight: bold;
+      border-right: none;
+    }
+    nav a.post-ad:hover { background: #218838; }
+
+    /* MAIN LAYOUT */
+    .main-wrap {
+      max-width: 1100px;
+      margin: 14px auto;
+      display: flex;
+      gap: 14px;
+      padding: 0 8px;
+    }
+
+    /* SIDEBAR */
+    aside {
+      width: 210px;
+      flex-shrink: 0;
+    }
+    .sidebar-box {
+      background: #fff;
+      border: 1px solid #b8c8e0;
+      border-radius: 2px;
+      margin-bottom: 12px;
+    }
+    .sidebar-title {
+      background: linear-gradient(180deg, #2255a4, #1a4090);
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 2px 2px 0 0;
+    }
+    .sidebar-box ul { list-style: none; padding: 6px 0; }
+    .sidebar-box ul li a {
+      display: flex;
+      justify-content: space-between;
+      color: #1a4090;
+      text-decoration: none;
+      padding: 5px 10px;
+      font-size: 12px;
+      border-bottom: 1px dotted #e0e8f0;
+    }
+    .sidebar-box ul li a:hover { background: #eef4ff; color: #f0a500; }
+    .sidebar-box ul li a:last-child { border-bottom: none; }
+    .cat-count {
+      color: #888;
+      font-size: 11px;
+    }
+
+    .sidebar-reg {
+      background: #fff;
+      border: 1px solid #b8c8e0;
+      border-radius: 2px;
+      padding: 12px;
+    }
+    .sidebar-reg h3 {
+      font-size: 13px;
+      color: #1a4090;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #f0a500;
+      padding-bottom: 5px;
+    }
+    .sidebar-reg input {
+      width: 100%;
+      border: 1px solid #b0c0d8;
+      padding: 6px 8px;
+      font-size: 12px;
+      margin-bottom: 6px;
+      border-radius: 2px;
+    }
+    .sidebar-reg input:focus { outline: 1px solid #2255a4; }
+    .sidebar-reg button {
+      width: 100%;
+      background: linear-gradient(180deg, #2255a4, #1a4090);
+      color: #fff;
+      border: none;
+      padding: 7px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 2px;
+      margin-bottom: 6px;
+    }
+    .sidebar-reg button:hover { background: #1a3a7a; }
+    .sidebar-reg .reg-link {
+      text-align: center;
+      display: block;
+      color: #2255a4;
+      font-size: 11px;
+      text-decoration: none;
+    }
+    .sidebar-reg .reg-link:hover { text-decoration: underline; }
+
+    /* CONTENT */
+    .content { flex: 1; min-width: 0; }
+
+    /* BANNER */
+    .hero-banner {
+      background: linear-gradient(135deg, #1a4090 0%, #2f6abf 50%, #1a4090 100%);
+      border: 1px solid #1a3a7a;
+      border-radius: 3px;
+      padding: 28px 32px;
+      color: #fff;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      right: -30px;
+      top: -30px;
+      width: 200px;
+      height: 200px;
+      background: rgba(240,165,0,0.15);
+      border-radius: 50%;
+    }
+    .hero-banner h1 {
+      font-size: 22px;
+      margin-bottom: 8px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+    .hero-banner p { font-size: 13px; color: #c0d8f0; margin-bottom: 16px; }
+    .hero-banner .hero-btns { display: flex; gap: 10px; }
+    .hero-banner .btn-main {
+      background: #f0a500;
+      color: #fff;
+      border: none;
+      padding: 9px 20px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 3px;
+      text-decoration: none;
+    }
+    .hero-banner .btn-main:hover { background: #d49200; }
+    .hero-banner .btn-sec {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.5);
+      padding: 9px 20px;
+      font-size: 13px;
+      cursor: pointer;
+      border-radius: 3px;
+      text-decoration: none;
+    }
+    .hero-banner .btn-sec:hover { background: rgba(255,255,255,0.1); }
+
+    /* SECTION TITLE */
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      border: 1px solid #b8c8e0;
+      border-bottom: 3px solid #2255a4;
+      padding: 7px 12px;
+      margin-bottom: 1px;
+      border-radius: 2px 2px 0 0;
+    }
+    .section-head h2 {
+      font-size: 14px;
+      color: #1a4090;
+      font-weight: bold;
+    }
+    .section-head a { font-size: 11px; color: #2255a4; text-decoration: none; }
+    .section-head a:hover { text-decoration: underline; }
+
+    /* ADS GRID */
+    .ads-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: #b8c8e0;
+      border: 1px solid #b8c8e0;
+      margin-bottom: 14px;
+    }
+    .ad-card {
+      background: #fff;
+      padding: 10px;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .ad-card:hover { background: #f0f6ff; }
+    .ad-img {
+      width: 100%;
+      aspect-ratio: 1;
+      background: #e8eef5;
+      border: 1px solid #d0dce8;
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      border-radius: 2px;
+    }
+    .ad-price {
+      color: #c0392b;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+    .ad-title {
+      color: #1a1a1a;
+      font-size: 12px;
+      margin-bottom: 3px;
+      line-height: 1.4;
+    }
+    .ad-meta { color: #888; font-size: 11px; }
+
+    /* STATS ROW */
+    .stats-row {
+      display: flex;
+      gap: 1px;
+      background: #b8c8e0;
+      border: 1px solid #b8c8e0;
+      margin-bottom: 14px;
+    }
+    .stat-item {
+      flex: 1;
+      background: #fff;
+      padding: 14px;
+      text-align: center;
+    }
+    .stat-num { font-size: 22px; font-weight: bold; color: #2255a4; }
+    .stat-label { font-size: 11px; color: #666; margin-top: 2px; }
+
+    /* FOOTER */
+    footer {
+      background: #1a3a6e;
+      color: #8aabcc;
+      padding: 20px 0 10px;
+      margin-top: 20px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding: 0 16px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer-col h4 { color: #fff; font-size: 12px; margin-bottom: 8px; }
+    .footer-col a { display: block; color: #8aabcc; text-decoration: none; font-size: 11px; margin-bottom: 4px; }
+    .footer-col a:hover { color: #f0a500; }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 10px auto 0;
+      padding: 0 16px;
+      font-size: 11px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <span>Добро пожаловать на Маркетплейс!</span>
+  <div>
+    <a href="#">Помощь</a>
+    <a href="#">Контакты</a>
+    <a href="#">Мобильная версия</a>
+  </div>
+</div>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">Базар<span>UA</span></a>
+    <div class="search-bar">
+      <select>
+        <option>Все категории</option>
+        <option>Электроника</option>
+        <option>Авто</option>
+        <option>Недвижимость</option>
+        <option>Одежда</option>
+      </select>
+      <input type="text" placeholder="Поиск объявлений...">
+      <button>Найти</button>
+    </div>
+    <div class="header-auth">
+      <a href="#" class="btn-login">Войти</a>
+      <a href="#" class="btn-reg">Регистрация</a>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="active">Главная</a>
+    <a href="#">Электроника</a>
+    <a href="#">Авто</a>
+    <a href="#">Недвижимость</a>
+    <a href="#">Работа</a>
+    <a href="#">Одежда</a>
+    <a href="#">Услуги</a>
+    <a href="#">Животные</a>
+    <a href="#" class="post-ad">+ Подать объявление</a>
+  </div>
+</nav>
+
+<div class="main-wrap">
+  <aside>
+    <div class="sidebar-box">
+      <div class="sidebar-title">Категории</div>
+      <ul>
+        <li><a href="#">Электроника <span class="cat-count">12 841</span></a></li>
+        <li><a href="#">Авто/мото <span class="cat-count">8 320</span></a></li>
+        <li><a href="#">Недвижимость <span class="cat-count">5 102</span></a></li>
+        <li><a href="#">Одежда <span class="cat-count">22 450</span></a></li>
+        <li><a href="#">Мебель <span class="cat-count">3 670</span></a></li>
+        <li><a href="#">Работа <span class="cat-count">9 100</span></a></li>
+        <li><a href="#">Животные <span class="cat-count">1 890</span></a></li>
+        <li><a href="#">Услуги <span class="cat-count">6 440</span></a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-reg">
+      <h3>Войти в аккаунт</h3>
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Пароль">
+      <button>Войти</button>
+      <a href="#" class="reg-link">Нет аккаунта? Зарегистрироваться</a>
+    </div>
+  </aside>
+
+  <div class="content">
+    <div class="hero-banner">
+      <h1>Покупайте и продавайте без посредников</h1>
+      <p>Более 60 000 актуальных объявлений по всей стране</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-main">Смотреть объявления</a>
+        <a href="#" class="btn-sec">Подать бесплатно</a>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-num">60 214</div>
+        <div class="stat-label">Объявлений</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">14 880</div>
+        <div class="stat-label">Пользователей</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3 402</div>
+        <div class="stat-label">Сделок сегодня</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Довольных клиентов</div>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <h2>Свежие объявления</h2>
+      <a href="#">Смотреть все →</a>
+    </div>
+    <div class="ads-grid">
+      <div class="ad-card">
+        <div class="ad-img">📱</div>
+        <div class="ad-price">7 500 грн</div>
+        <div class="ad-title">iPhone 13 128GB, отличное состояние</div>
+        <div class="ad-meta">Киев · 2 часа назад</div>
+      </div>
+      <div class="ad-card">
+        <div class="ad-img">💻</div>
+        <div class="ad-price">18 000 грн</div>
+        <div class="ad-title">Ноутбук Lenovo ThinkPad i5/16GB</div>
+        <div class="ad-meta">Харьков · 4 часа назад</div>
+      </div>
+      <div class="ad-card">
+        <div class="ad-img">🚗</div>
+        <div class="ad-price">210 000 грн</div>
+        <div class="ad-title">Toyota Camry 2019, 45 000 км</div>
+        <div class="ad-meta">Одесса · 5 часов назад</div>
+      </div>
+      <div class="ad-card">
+        <div class="ad-img">🛋️</div>
+        <div class="ad-price">4 200 грн</div>
+        <div class="ad-title">Диван угловой, б/у в хорошем состоянии</div>
+        <div class="ad-meta">Днепр · 6 часов назад</div>
+      </div>
+      <div class="ad-card">
+        <div class="ad-img">👟</div>
+        <div class="ad-price">1 800 грн</div>
+        <div class="ad-title">Кроссовки Nike Air Max 44 размер</div>
+        <div class="ad-meta">Львов · 7 часов назад</div>
+      </div>
+      <div class="ad-card">
+        <div class="ad-img">📷</div>
+        <div class="ad-price">12 500 грн</div>
+        <div class="ad-title">Фотоаппарат Canon EOS + объектив</div>
+        <div class="ad-meta">Киев · 8 часов назад</div>
+      </div>
+      <div class="ad-card">
+        <div class="ad-img">🏠</div>
+        <div class="ad-price">35 000 $</div>
+        <div class="ad-title">Квартира 2к, 52м², центр города</div>
+        <div class="ad-meta">Харьков · 9 часов назад</div>
+      </div>
+      <div class="ad-card">
+        <div class="ad-img">⌚</div>
+        <div class="ad-price">3 400 грн</div>
+        <div class="ad-title">Умные часы Samsung Galaxy Watch 4</div>
+        <div class="ad-meta">Запорожье · 10 часов назад</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>О компании</h4>
+      <a href="#">О нас</a>
+      <a href="#">Пресс-центр</a>
+      <a href="#">Вакансии</a>
+      <a href="#">Контакты</a>
+    </div>
+    <div class="footer-col">
+      <h4>Помощь</h4>
+      <a href="#">Правила сайта</a>
+      <a href="#">Безопасность</a>
+      <a href="#">Частые вопросы</a>
+      <a href="#">Поддержка</a>
+    </div>
+    <div class="footer-col">
+      <h4>Продавцам</h4>
+      <a href="#">Подать объявление</a>
+      <a href="#">Тарифы</a>
+      <a href="#">Статистика</a>
+    </div>
+    <div class="footer-col">
+      <h4>Контакты</h4>
+      <a href="#">0 800 123 456</a>
+      <a href="#">info@bazar.ua</a>
+      <a href="#">Telegram</a>
+      <a href="#">Viber</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 БазарUA. Все права защищены.</div>
+</footer>
+
+</body>
+</html>
