@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.22'
 gem "devise"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.1"
