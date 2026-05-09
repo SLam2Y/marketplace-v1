@@ -1,0 +1,17 @@
+<main class="home-hero">
+  <div class="hero-content">
+    <h2><%= t('.headline') %></h2>
+    <p class="hero-subtitle"><%= t('.subheadline') %></p>
+
+    <div class="hero-actions">
+      <% if user_signed_in? %>
+        <%= link_to t('.browse'), "#", class: "button" %>
+        <%= link_to t('.sell'), "#", class: "button button-outline" %>
+      <% else %>
+        <%= link_to t('.get_started'), new_user_registration_path, class: "button" %>
+        <%= link_to t('.login'), new_user_session_path, class: "button button-outline" %>
+        <%= link_to t('.browse'), "#", class: "button button-clear" %>
+      <% end %>
+    </div>
+  </div>
+</main>
