@@ -1,0 +1,17 @@
+en:
+  application:
+    navbar:
+      title: "Marketplace"
+      admin: "Admin"
+      login: "Log in"
+      exit: "Exit"
+      signup: "Register"
+
+  pages:
+    home:
+      headline: "Buy and sell anything"
+      subheadline: "The best place to find great deals or list your items for sale."
+      get_started: "Get started"
+      login: "Log in"
+      browse: "Browse listings"
+      sell: "Sell something"

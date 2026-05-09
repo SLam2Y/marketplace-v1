@@ -1,0 +1,29 @@
+<div class="admin-conteiner">
+<h1>Admin page</h1>
+
+<% if user_signed_in? && current_user.role == "guest" %>
+<p>no entry</p>
+<% end %>
+<% if user_signed_in? && current_user.role == "admin" %>
+<h2>Users</h2>
+<div id="all_users">
+  <% @users.each do |user| %>
+    <div> <strong>email:</strong> <%= user.email %> </div>
+    <div> <strong>role:</strong> <%= user.role %> </div>
+  <% end %>
+</div>
+<% end %>
+
+<p style="color: red; font-size: 20px; padding-top:20px;">Чтобы сделать пользователя администратором , введите </p>
+
+<%= form_with url: update_by_email_users_path, method: :patch do |f| %>
+  <%= label_tag :email, "Email пользователя" %>
+  <%= text_field_tag :email %>
+
+  <%= label_tag :role, "Новая роль" %>
+  <%= text_field_tag :role %>
+
+  <%= submit_tag "Обновить" %>
+<% end %>
+
+</div>
